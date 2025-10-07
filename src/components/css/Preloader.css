@@ -1,0 +1,71 @@
+/* Preloader Container */
+.preloader-container {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;  */
+  background-color: transparent; /* No background */
+  /* position: fixed; */
+  /* top: 0; */
+  /* left: 0; */
+  z-index: 9999; /* Ensure it's on top */
+}
+/* Preloader Image */
+.preloader-image {
+  width: 80px; /* Adjust size as needed */
+  height: 80px; /* Adjust size as needed */
+  background-image: url('/public/preloader.png'); /* Add your custom image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: bounce 1.5s infinite ease-in-out, glow 2s infinite alternate;
+}
+
+/* Loading Text */
+.loading-text {
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #833d02; /* Default text color for light mode */
+  animation: blink 1.5s infinite ease-in-out;
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  .loading-text {
+    color: #833d02; /* White text for dark mode */
+  }
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0); /* Default position */
+  }
+  50% {
+    transform: translateY(-30px); /* Move up */
+  }
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.7));
+  }
+  100% {
+    filter: drop-shadow(0 0 0px rgba(249, 105, 103, 1));
+  }
+}
+
+/* Blink Animation */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
