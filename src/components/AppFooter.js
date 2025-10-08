@@ -10,7 +10,7 @@ const AppFooter = () => {
       <div className="ms-auto">
         <span className="me-1">All rights reserved by</span>
         <a href="#" target="_blank" rel="noopener noreferrer">
-          PicklePlay
+          NashikPicklers
         </a>
       </div>
     </CFooter>

@@ -272,7 +272,7 @@ const Courts = () => {
               onChange={e => setPrice(e.target.value)}
               className="mb-3"
             />
-            <CFormSelect
+            {/* <CFormSelect
               label="Type"
               value={type}
               onChange={e => setType(e.target.value)}
@@ -280,7 +280,7 @@ const Courts = () => {
             >
               <option value="Indoor">Indoor</option>
               <option value="Outdoor">Outdoor</option>
-            </CFormSelect>
+            </CFormSelect> */}
             <CFormSelect
               label="Status"
               value={status}

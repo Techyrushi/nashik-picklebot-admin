@@ -12,7 +12,7 @@ import api from '../../api'
 // Configure axios defaults
 axios.defaults.baseURL = window.location.origin
 
-const PicklePlayDashboard = () => {
+const NashikPicklersDashboard = () => {
   const [stats, setStats] = useState({
     totalBookings: 0,
     totalRevenue: 0,
@@ -43,19 +43,23 @@ const PicklePlayDashboard = () => {
         try {
           // Fetch courts
           const courtsResponse = await api.get('/api/admin/courts')
-          courts = Array.isArray(courtsResponse.data) ? courtsResponse.data : []
+          const allCourts = Array.isArray(courtsResponse.data) ? courtsResponse.data : []
+           // ✅ Filter only Active slots
+          courts = allCourts.filter((slot) => slot.status === 'Active')
         } catch (error) {
           console.error('Error fetching courts:', error)
           courts = [] // Ensure courts is an empty array on error
         }
 
         try {
-          // Fetch slots
           const slotsResponse = await api.get('/api/admin/slots')
-          slots = Array.isArray(slotsResponse.data) ? slotsResponse.data : []
+          const allSlots = Array.isArray(slotsResponse.data) ? slotsResponse.data : []
+
+          // ✅ Filter only Active slots
+          slots = allSlots.filter((slot) => slot.status === 'Active')
         } catch (error) {
           console.error('Error fetching slots:', error)
-          slots = [] // Ensure slots is an empty array on error
+          slots = []
         }
 
         // Calculate total revenue from bookings
@@ -119,7 +123,7 @@ const PicklePlayDashboard = () => {
     <>
       <CCard className="mb-4">
         <CCardHeader>
-          <h4>PicklePlay Management</h4>
+          <h4>NashikPicklers Management</h4>
         </CCardHeader>
         <CCardBody>
           <CRow>
@@ -248,4 +252,4 @@ const PicklePlayDashboard = () => {
   )
 }
 
-export default PicklePlayDashboard
+export default NashikPicklersDashboard

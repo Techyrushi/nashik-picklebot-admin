@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/dashboard'))
-// PicklePlay Components
+// NashikPicklers Components
 const Courts = React.lazy(() => import('./views/dashboard/Courts'))
 const Slots = React.lazy(() => import('./views/dashboard/Slots'))
 const Bookings = React.lazy(() => import('./views/dashboard/Bookings'))
-const PicklePlayDashboard = React.lazy(() => import('./views/dashboard/PicklePlayDashboard'))
+const NashikPicklersDashboard = React.lazy(() => import('./views/dashboard/NashikPicklersDashboard'))
 
 const Settings = React.lazy(() => import('./views/forms/settings/UpdatePassword'))
 
@@ -30,7 +30,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/pickleplay', name: 'PicklePlay Dashboard', element: PicklePlayDashboard },
+  { path: '/NashikPicklers', name: 'NashikPicklers Dashboard', element: NashikPicklersDashboard },
   { path: '/courts', name: 'Courts', element: Courts },
   { path: '/slots', name: 'Time Slots', element: Slots },
   { path: '/bookings', name: 'Bookings', element: Bookings },

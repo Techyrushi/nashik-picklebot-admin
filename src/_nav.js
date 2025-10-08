@@ -31,13 +31,13 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 const _nav = [
   {
     component: CNavItem,
-    name: 'PicklePlay Dashboard',
-    to: '/pickleplay',
+    name: 'Dashboard',
+    to: '/NashikPicklers',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
-    name: 'PicklePlay',
+    name: 'NashikPicklers',
   },
   {
     component: CNavItem,

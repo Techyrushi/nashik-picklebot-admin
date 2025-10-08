@@ -130,7 +130,7 @@ const Dashboard = () => {
     <>
       <CCard className="mb-4">
         <CCardHeader>
-          <h4>PicklePlay Dashboard</h4>
+          <h4>NashikPicklers Dashboard</h4>
         </CCardHeader>
         <CCardBody>
           <CRow>

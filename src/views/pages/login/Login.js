@@ -35,7 +35,7 @@ const Login = () => {
       localStorage.setItem('token', token);
 
       // Redirect to admin dashboard
-      navigate('/pickleplay');
+      navigate('/NashikPicklers');
     } catch (error) {
       // Display SweetAlert on login failure
       Swal.fire({

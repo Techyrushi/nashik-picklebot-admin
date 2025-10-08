@@ -34,7 +34,7 @@ const AppBreadcrumb = () => {
 
   // Function to handle Home click
   const handleHomeClick = () => {
-    navigate('/dashboard') // Navigate to the dashboard when Home is clicked
+    navigate('/NashikPicklers') // Navigate to the dashboard when Home is clicked
   }
 
   return (
