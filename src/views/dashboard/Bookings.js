@@ -183,14 +183,15 @@ const Bookings = () => {
   function exportBookings() {
     try {
       // Create CSV content
-      let csvContent = 'Booking ID,Date,Time,Court,User,Amount,Status\n'
+      let csvContent = 'Booking ID,Date,Time,Court,Duration,User,Amount,Status\n'
 
       filteredList.forEach((booking) => {
         const row = [
-          booking._id,
+          booking.bookingId,
           booking.date,
           booking.slot,
           booking.courtName,
+          booking.duration,
           booking.whatsapp,
           booking.amount,
           booking.status,
@@ -253,10 +254,13 @@ const Bookings = () => {
     try {
       await api.post(`/api/admin/bookings/${selectedBookingId}/sendMessage`, { message })
       setVisible(false)
-      alert('Message sent successfully')
+      Swal.fire({
+        icon: 'success',
+        title: 'Message sent successfully!',
+      })
     } catch (error) {
       console.error('Error sending message:', error)
-      alert('Failed to send message')
+       Swal.fire('Failed to send message!')
     }
   }
 
@@ -423,38 +427,57 @@ const Bookings = () => {
                 </CRow>
               )}
 
-              <CTable hover responsive>
-                <CTableHead>
+              <CTable
+                hover
+                responsive
+                striped
+                bordered
+                className="shadow-sm align-middle"
+                style={{
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  borderCollapse: 'separate',
+                  borderSpacing: 0,
+                }}
+              >
+                <CTableHead color="dark">
                   <CTableRow>
                     {showDetailView ? (
                       <>
-                        <CTableHeaderCell scope="col">Booking ID</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Date</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Time Slot</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Court</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Amount (₹)</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Booking ID</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Date</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Time Slot</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Duration</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Court</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Amount (₹)</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Status</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Actions</CTableHeaderCell>
                       </>
                     ) : (
                       <>
-                        <CTableHeaderCell scope="col">WhatsApp Number</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Bookings Count</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">WhatsApp Number</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Bookings Count</CTableHeaderCell>
+                        <CTableHeaderCell className="text-center fw-bold">Actions</CTableHeaderCell>
                       </>
                     )}
                   </CTableRow>
                 </CTableHead>
+
                 <CTableBody>
                   {showDetailView ? (
                     filteredList.length > 0 ? (
                       filteredList.map((booking) => (
-                        <CTableRow key={booking._id}>
-                          <CTableDataCell>{booking._id.substring(0, 8)}...</CTableDataCell>
+                        <CTableRow
+                          key={booking._id}
+                          className="text-center"
+                          style={{ cursor: 'pointer', transition: '0.3s' }}
+                        >
+                          <CTableDataCell>{booking.bookingId}</CTableDataCell>
                           <CTableDataCell>{booking.date}</CTableDataCell>
                           <CTableDataCell>{booking.slot}</CTableDataCell>
+                          <CTableDataCell>{booking.duration}</CTableDataCell>
                           <CTableDataCell>{booking.courtName}</CTableDataCell>
-                          <CTableDataCell>₹{booking.amount}</CTableDataCell>
+                          <CTableDataCell className="fw-semibold">₹{booking.amount}</CTableDataCell>
                           <CTableDataCell>
                             <CBadge
                               color={
@@ -472,45 +495,62 @@ const Bookings = () => {
                             <CButton
                               color="primary"
                               size="sm"
+                              variant="outline"
+                              style={{ transition: '0.3s' }}
+                              onMouseEnter={(e) => (e.target.innerText = 'Send Message')}
+                              onMouseLeave={(e) => (e.target.innerText = 'Message')}
                               onClick={() => openMessageModal(booking._id)}
                             >
-                              Send Message
+                              Message
                             </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))
                     ) : (
                       <CTableRow>
-                        <CTableDataCell colSpan="7" className="text-center">
+                        <CTableDataCell colSpan="8" className="text-center fw-bold py-4">
                           No bookings found for the selected filters
                         </CTableDataCell>
                       </CTableRow>
                     )
-                  ) : (
+                  ) : groupedByWhatsapp.filter((item) => !whatsappFilter || item.whatsapp.includes(whatsappFilter))
+                    .length > 0 ? (
                     groupedByWhatsapp
                       .filter((item) => !whatsappFilter || item.whatsapp.includes(whatsappFilter))
                       .map((item) => (
-                        <CTableRow key={item.whatsapp}>
-                          <CTableDataCell>{item.whatsapp}</CTableDataCell>
+                        <CTableRow
+                          key={item.whatsapp}
+                          className="text-center"
+                          style={{ cursor: 'pointer', transition: '0.3s' }}
+                        >
+                          <CTableDataCell className="fw-semibold">{item.whatsapp}</CTableDataCell>
                           <CTableDataCell>
-                            <CBadge color="primary" shape="rounded-pill">
+                            <CBadge color="primary" shape="rounded-pill" className="px-3 py-2">
                               {item.count}
                             </CBadge>
                           </CTableDataCell>
                           <CTableDataCell>
                             <CButton
-                              color="info"
+                              color="warning"
                               size="sm"
+                              style={{ transition: '0.3s', color: 'white' }}
                               onClick={() => viewBookingsByWhatsapp(item.whatsapp)}
                             >
-                              View Bookings
+                              View
                             </CButton>
                           </CTableDataCell>
                         </CTableRow>
                       ))
+                  ) : (
+                    <CTableRow>
+                      <CTableDataCell colSpan="3" className="text-center fw-bold py-4">
+                        No checked-in users found.
+                      </CTableDataCell>
+                    </CTableRow>
                   )}
                 </CTableBody>
               </CTable>
+
             </CCardBody>
           </CCard>
         </CCol>

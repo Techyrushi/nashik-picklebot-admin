@@ -346,9 +346,9 @@ const Slots = () => {
               <CCardBody>
                 <CForm className="row g-3">
                   <CCol md={6}>
-                    <CFormInput 
+                    <CFormInput
                       type="date"
-                      value={filterDate} 
+                      value={filterDate}
                       onChange={e => setFilterDate(e.target.value)}
                       label="Filter by Date"
                     />
@@ -366,84 +366,78 @@ const Slots = () => {
                         </option>
                       ))}
                     </CFormSelect>
-                  </CCol> 
+                  </CCol>
                 </CForm>
               </CCardBody>
             </CCard> */}
 
             {/* Slots Table */}
-            <CTable hover responsive>
-              <CTableHead>
+            <CTable
+              hover
+              responsive
+              striped
+              bordered
+              className="shadow-sm align-middle"
+              style={{
+                borderRadius: '10px',
+                overflow: 'hidden',
+                borderCollapse: 'separate',
+                borderSpacing: 0,
+              }}
+            >
+              <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col">Time Slot</CTableHeaderCell>
-                  {/* <CTableHeaderCell scope="col">Price (₹)</CTableHeaderCell> */}
-                  <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-                  {/* <CTableHeaderCell scope="col">Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Court</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Availability</CTableHeaderCell> */}
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Time Slot</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Status</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
+
               <CTableBody>
-                {list.map((slot) => (
-                  <CTableRow key={slot._id}>
-                    <CTableDataCell>{slot.time}</CTableDataCell>
-                    {/* <CTableDataCell>₹{slot.price}</CTableDataCell> */}
-                    <CTableDataCell>
-                      <CBadge color={slot.status === 'Active' ? 'success' : 'danger'}>
-                        {slot.status || 'Active'}
-                      </CBadge>
-                    </CTableDataCell>
-                    {/* <CTableDataCell>{slot.date || 'All Dates'}</CTableDataCell>
-                    <CTableDataCell>
-                      {slot.courtId ? 
-                        courts.find(c => c._id === slot.courtId)?.name || 'Unknown Court' 
-                        : 'All Courts'}
-                    </CTableDataCell> */}
-                    {/* <CTableDataCell>
-                      {selectedSlotId === slot._id && courtAvailability.courts ? (
-                        <div>
-                          {courtAvailability.courts.map(court => (
-                            <div key={court.courtId} className="mb-2">
-                              <div className="d-flex align-items-center mb-1">
-                                <small>{court.courtName}</small>
-                                <CIcon icon={cilPeople} size="sm" className="ms-2 me-1" />
-                                <small>{court.bookedCapacity}/{court.totalCapacity}</small>
-                              </div>
-                              <CTooltip content={`${court.availableCapacity} spots available`}>
-                                <CProgress value={(court.bookedCapacity/court.totalCapacity)*100} color={court.isAvailable ? "success" : "danger"} height={5} />
-                              </CTooltip>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <CButton 
-                          color="info" 
+                {list.length > 0 ? (
+                  list.map((slot) => (
+                    <CTableRow
+                      key={slot._id}
+                      className="text-center"
+                      style={{ cursor: 'pointer', transition: '0.3s' }}
+                    >
+                      <CTableDataCell>{slot.time}</CTableDataCell>
+                      <CTableDataCell>
+                        <CBadge color={slot.status === 'Active' ? 'success' : 'danger'}>
+                          {slot.status || 'Active'}
+                        </CBadge>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <CButton
+                          color="info"
                           size="sm"
-                          onClick={() => checkSlotAvailability(slot._id)}
-                          disabled={!filterDate}
+                          className="me-2"
+                          style={{ transition: '0.3s' }}
+                          onClick={() => editSlot(slot)}
                         >
-                          Check
+                          Edit
                         </CButton>
-                      )}
-                    </CTableDataCell> */}
-                    <CTableDataCell>
-                      <CButton
-                        color="info"
-                        size="sm"
-                        className="me-2"
-                        onClick={() => editSlot(slot)}
-                      >
-                        Edit
-                      </CButton>
-                      <CButton color="danger" size="sm" onClick={() => removeSlot(slot._id)}>
-                        Delete
-                      </CButton>
+                        <CButton
+                          color="danger"
+                          size="sm"
+                          style={{ transition: '0.3s' }}
+                          onClick={() => removeSlot(slot._id)}
+                        >
+                          Delete
+                        </CButton>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))
+                ) : (
+                  <CTableRow>
+                    <CTableDataCell colSpan="3" className="text-center fw-bold py-4">
+                      No time slots available.
                     </CTableDataCell>
                   </CTableRow>
-                ))}
+                )}
               </CTableBody>
             </CTable>
+
           </CCardBody>
         </CCard>
       </CCol>

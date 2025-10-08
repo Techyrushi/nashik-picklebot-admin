@@ -5,6 +5,8 @@ const Dashboard = React.lazy(() => import('./views/dashboard/dashboard'))
 const Courts = React.lazy(() => import('./views/dashboard/Courts'))
 const Slots = React.lazy(() => import('./views/dashboard/Slots'))
 const Bookings = React.lazy(() => import('./views/dashboard/Bookings'))
+const CheckedIns = React.lazy(() => import('./views/dashboard/CheckedIns'))
+const Reports = React.lazy(() => import('./views/dashboard/Reports'))
 const NashikPicklersDashboard = React.lazy(() => import('./views/dashboard/NashikPicklersDashboard'))
 
 const Settings = React.lazy(() => import('./views/forms/settings/UpdatePassword'))
@@ -34,6 +36,8 @@ const routes = [
   { path: '/courts', name: 'Courts', element: Courts },
   { path: '/slots', name: 'Time Slots', element: Slots },
   { path: '/bookings', name: 'Bookings', element: Bookings },
+  { path: '/checkIns', name: 'CheckedIns', element: CheckedIns },
+  { path: '/reports', name: 'Reports', element: Reports },
   { path: '/settings', name: 'Settings', element: Settings },
   {
     path: '/forms/view-seller-registration/:id',

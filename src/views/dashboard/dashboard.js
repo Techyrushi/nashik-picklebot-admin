@@ -40,11 +40,11 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+
         let bookings = [];
         let courts = [];
         let slots = [];
-        
+
         try {
           // Fetch bookings
           const bookingsResponse = await axios.get('/api/admin/bookings');
@@ -52,7 +52,7 @@ const Dashboard = () => {
         } catch (error) {
           console.error('Error fetching bookings:', error);
         }
-        
+
         try {
           // Fetch courts
           const courtsResponse = await axios.get('/api/admin/courts');
@@ -60,7 +60,7 @@ const Dashboard = () => {
         } catch (error) {
           console.error('Error fetching courts:', error);
         }
-        
+
         try {
           // Fetch slots
           const slotsResponse = await axios.get('/api/admin/slots');
@@ -68,7 +68,7 @@ const Dashboard = () => {
         } catch (error) {
           console.error('Error fetching slots:', error);
         }
-        
+
         // Calculate total revenue from bookings
         let revenue = 0;
         if (bookings.length > 0) {
@@ -78,20 +78,14 @@ const Dashboard = () => {
             }
           });
         }
-        
+
         // Ensure we have valid numbers for all stats
         const totalBookings = bookings.length || 0;
         const totalRevenue = isNaN(revenue) ? 0 : revenue;
         const activeCourts = courts.length || 0;
         const activeSlots = slots.length || 0;
-        
-        console.log('Setting stats:', {
-          totalBookings,
-          totalRevenue,
-          activeCourts,
-          activeSlots,
-        });
-        
+
+
         setStats({
           totalBookings,
           totalRevenue,
@@ -107,7 +101,7 @@ const Dashboard = () => {
           activeCourts: 0,
           activeSlots: 0,
         });
-        
+
         Swal.fire({
           title: 'Error',
           text: 'Failed to load dashboard data. Please try again.',

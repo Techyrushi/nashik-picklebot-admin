@@ -78,12 +78,6 @@ const NashikPicklersDashboard = () => {
         const activeCourts = courts && Array.isArray(courts) ? courts.length : 0
         const activeSlots = slots && Array.isArray(slots) ? slots.length : 0
 
-        console.log('Dashboard stats calculated:', {
-          totalBookings,
-          totalRevenue,
-          activeCourts,
-          activeSlots,
-        })
 
         setStats({
           totalBookings,

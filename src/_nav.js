@@ -57,6 +57,18 @@ const _nav = [
     to: '/bookings',
     icon: <CIcon icon={cilCalendar} customClassName="nav-icon" />,
   },
+  {
+    component: CNavItem,
+    name: 'CheckIns',
+    to: '/checkIns',
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Reports',
+    to: '/reports',
+    icon: <CIcon icon={cilCalculator} customClassName="nav-icon" />,
+  },
 ]
 
 export default _nav

@@ -35,16 +35,16 @@ const Courts = () => {
   const [currentCourt, setCurrentCourt] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  async function loadCourts() { 
+  async function loadCourts() {
     try {
-      const response = await api.get('/api/admin/courts'); 
+      const response = await api.get('/api/admin/courts');
       // Add default type and status if not present
       const updatedCourts = response.data.map(court => ({
         ...court,
         type: court.type || 'Indoor',
         status: court.status || 'Active'
       }));
-      setList(updatedCourts); 
+      setList(updatedCourts);
     } catch (error) {
       console.error("Error loading courts:", error);
       Swal.fire({
@@ -55,13 +55,13 @@ const Courts = () => {
     }
   }
 
-  useEffect(() => { 
-    loadCourts(); 
+  useEffect(() => {
+    loadCourts();
   }, []);
 
-  async function addCourt() { 
+  async function addCourt() {
     try {
-      await api.post('/api/admin/courts', { name, price, type, status }); 
+      await api.post('/api/admin/courts', { name, price, type, status });
       resetForm();
       loadCourts();
       Swal.fire({
@@ -81,9 +81,9 @@ const Courts = () => {
 
   async function updateCourt() {
     try {
-      await api.put(`/api/admin/courts/${currentCourt._id}`, { 
-        name, 
-        price, 
+      await api.put(`/api/admin/courts/${currentCourt._id}`, {
+        name,
+        price,
         type,
         status
       });
@@ -105,7 +105,7 @@ const Courts = () => {
     }
   }
 
-  async function removeCourt(id) { 
+  async function removeCourt(id) {
     try {
       const result = await Swal.fire({
         title: 'Are you sure?',
@@ -118,7 +118,7 @@ const Courts = () => {
       });
 
       if (result.isConfirmed) {
-        await api.delete('/api/admin/courts/' + id); 
+        await api.delete('/api/admin/courts/' + id);
         loadCourts();
         Swal.fire(
           'Deleted!',
@@ -135,7 +135,7 @@ const Courts = () => {
       });
     }
   }
-  
+
   function editCourt(court) {
     setCurrentCourt(court);
     setName(court.name);
@@ -144,7 +144,7 @@ const Courts = () => {
     setStatus(court.status || 'Active');
     setShowModal(true);
   }
-  
+
   function resetForm() {
     setName('');
     setPrice('');
@@ -163,18 +163,18 @@ const Courts = () => {
           <CCardBody>
             <CForm className="row g-3 mb-4">
               <CCol md={4}>
-                <CFormInput 
-                  placeholder="Court Name" 
-                  value={name} 
+                <CFormInput
+                  placeholder="Court Name"
+                  value={name}
                   onChange={e => setName(e.target.value)}
                   label="Court Name"
                 />
               </CCol>
               <CCol md={3}>
-                <CFormInput 
-                  placeholder="Price" 
+                <CFormInput
+                  placeholder="Price"
                   type="number"
-                  value={price} 
+                  value={price}
                   onChange={e => setPrice(e.target.value)}
                   label="Price (₹)"
                 />
@@ -204,48 +204,80 @@ const Courts = () => {
               </CCol>
             </CForm>
 
-            <CTable hover responsive>
-              <CTableHead>
+            <CTable
+              hover
+              responsive
+              striped
+              bordered
+              className="shadow-sm align-middle"
+              style={{
+                borderRadius: '10px',
+                overflow: 'hidden',
+                borderCollapse: 'separate',
+                borderSpacing: 0,
+              }}
+            >
+              <CTableHead color="dark">
                 <CTableRow>
-                  <CTableHeaderCell scope="col">Court Name</CTableHeaderCell>
-                  {/* <CTableHeaderCell scope="col">Type</CTableHeaderCell> */}
-                  <CTableHeaderCell scope="col">Price (₹)</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Actions</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Court Name</CTableHeaderCell>
+                  {/* <CTableHeaderCell className="text-center fw-bold">Type</CTableHeaderCell> */}
+                  <CTableHeaderCell className="text-center fw-bold">Price (₹)</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Status</CTableHeaderCell>
+                  <CTableHeaderCell className="text-center fw-bold">Actions</CTableHeaderCell>
                 </CTableRow>
               </CTableHead>
+
               <CTableBody>
-                {list.map(court => (
-                  <CTableRow key={court._id}>
-                    <CTableDataCell>{court.name}</CTableDataCell>
-                    {/* <CTableDataCell>{court.type || 'Indoor'}</CTableDataCell> */}
-                    <CTableDataCell>₹{court.price}</CTableDataCell>
-                    <CTableDataCell>
-                      <CBadge color={court.status === 'Active' ? 'success' : 'danger'}>
-                        {court.status || 'Active'}
-                      </CBadge>
-                    </CTableDataCell>
-                    <CTableDataCell>
-                      <CButton 
-                        color="info" 
-                        size="sm" 
-                        className="me-2"
-                        onClick={() => editCourt(court)}
-                      >
-                        Edit
-                      </CButton>
-                      <CButton 
-                        color="danger" 
-                        size="sm" 
-                        onClick={() => removeCourt(court._id)}
-                      >
-                        Delete
-                      </CButton>
+                {list.length > 0 ? (
+                  list.map((court) => (
+                    <CTableRow
+                      key={court._id}
+                      className="text-center"
+                      style={{ cursor: 'pointer', transition: '0.3s' }}
+                    >
+                      <CTableDataCell>{court.name}</CTableDataCell>
+                      {/* <CTableDataCell>{court.type || 'Indoor'}</CTableDataCell> */}
+                      <CTableDataCell className="fw-semibold">₹{court.price}</CTableDataCell>
+                      <CTableDataCell>
+                        <CBadge color={court.status === 'Active' ? 'success' : 'danger'}>
+                          {court.status || 'Active'}
+                        </CBadge>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <CButton
+                          color="info"
+                          size="sm"
+
+                          className="me-2"
+                          style={{ transition: '0.3s' }}
+
+                          onClick={() => editCourt(court)}
+                        >
+                          Edit
+                        </CButton>
+                        <CButton
+                          color="danger"
+                          size="sm"
+
+                          style={{ transition: '0.3s' }}
+
+                          onClick={() => removeCourt(court._id)}
+                        >
+                          Delete
+                        </CButton>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))
+                ) : (
+                  <CTableRow>
+                    <CTableDataCell colSpan="4" className="text-center fw-bold py-4">
+                      No courts found.
                     </CTableDataCell>
                   </CTableRow>
-                ))}
+                )}
               </CTableBody>
             </CTable>
+
           </CCardBody>
         </CCard>
       </CCol>
@@ -257,18 +289,18 @@ const Courts = () => {
         </CModalHeader>
         <CModalBody>
           <CForm>
-            <CFormInput 
+            <CFormInput
               label="Court Name"
-              placeholder="Court Name" 
-              value={name} 
+              placeholder="Court Name"
+              value={name}
               onChange={e => setName(e.target.value)}
               className="mb-3"
             />
-            <CFormInput 
+            <CFormInput
               label="Price (₹)"
-              placeholder="Price" 
+              placeholder="Price"
               type="number"
-              value={price} 
+              value={price}
               onChange={e => setPrice(e.target.value)}
               className="mb-3"
             />
