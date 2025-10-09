@@ -11,11 +11,6 @@ const NashikPicklersDashboard = React.lazy(() => import('./views/dashboard/Nashi
 
 const Settings = React.lazy(() => import('./views/forms/settings/UpdatePassword'))
 
-const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
-const ViewSellerRegistration = React.lazy(
-  () => import('./views/forms/view-seller-registration/ViewSellerRegistration'),
-)
-
 // Icons
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
 const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
@@ -39,11 +34,7 @@ const routes = [
   { path: '/checkIns', name: 'CheckedIns', element: CheckedIns },
   { path: '/reports', name: 'Reports', element: Reports },
   { path: '/settings', name: 'Settings', element: Settings },
-  {
-    path: '/forms/view-seller-registration/:id',
-    name: 'Registered Seller Details',
-    element: ViewSellerRegistration,
-  },
+
   { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
   { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
   { path: '/icons/flags', name: 'Flags', element: Flags },

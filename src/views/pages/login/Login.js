@@ -114,7 +114,7 @@ const Login = () => {
               <CCard className="text-white py-5 border-0" style={{ width: '44%', background: "linear-gradient(80.67deg, rgb(251 246 241 / 83%) 10.63%, rgb(248 237 228 / 8%) 91.44%)" }}>
                 <CCardBody className="text-center">
                   <div>
-                    <img src="/cart.png" alt="image" width={300} height={250} />
+                    <img src="/carts.png" alt="image" width={300} height={250} />
                   </div>
                 </CCardBody>
               </CCard>
