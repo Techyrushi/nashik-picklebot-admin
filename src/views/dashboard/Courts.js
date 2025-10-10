@@ -139,7 +139,7 @@ const Courts = () => {
   function editCourt(court) {
     setCurrentCourt(court);
     setName(court.name);
-    setPrice(court.price);
+    setPrice(court.price || 0);
     setType(court.type || 'Indoor');
     setStatus(court.status || 'Active');
     setShowModal(true);
@@ -170,7 +170,7 @@ const Courts = () => {
                   label="Court Name"
                 />
               </CCol>
-              <CCol md={3}>
+              {/* <CCol md={3}>
                 <CFormInput
                   placeholder="Price"
                   type="number"
@@ -178,7 +178,7 @@ const Courts = () => {
                   onChange={e => setPrice(e.target.value)}
                   label="Price (₹)"
                 />
-              </CCol>
+              </CCol> */}
               {/* <CCol md={2}>
                 <CFormSelect
                   label="Type"
@@ -189,7 +189,7 @@ const Courts = () => {
                   <option value="Outdoor">Outdoor</option>
                 </CFormSelect>
               </CCol> */}
-              <CCol md={3}>
+              <CCol md={4}>
                 <CFormSelect
                   label="Status"
                   value={status}
@@ -199,7 +199,7 @@ const Courts = () => {
                   <option value="Inactive">Inactive</option>
                 </CFormSelect>
               </CCol>
-              <CCol md={2} className="d-flex align-items-end">
+              <CCol md={4} className="d-flex align-items-end">
                 <CButton color="primary" onClick={addCourt} className="px-4">Add Court</CButton>
               </CCol>
             </CForm>
@@ -221,7 +221,7 @@ const Courts = () => {
                 <CTableRow>
                   <CTableHeaderCell className="text-center fw-bold">Court Name</CTableHeaderCell>
                   {/* <CTableHeaderCell className="text-center fw-bold">Type</CTableHeaderCell> */}
-                  <CTableHeaderCell className="text-center fw-bold">Price (₹)</CTableHeaderCell>
+                  {/* <CTableHeaderCell className="text-center fw-bold">Price (₹)</CTableHeaderCell> */}
                   <CTableHeaderCell className="text-center fw-bold">Status</CTableHeaderCell>
                   <CTableHeaderCell className="text-center fw-bold">Actions</CTableHeaderCell>
                 </CTableRow>
@@ -237,7 +237,7 @@ const Courts = () => {
                     >
                       <CTableDataCell>{court.name}</CTableDataCell>
                       {/* <CTableDataCell>{court.type || 'Indoor'}</CTableDataCell> */}
-                      <CTableDataCell className="fw-semibold">₹{court.price}</CTableDataCell>
+                      {/* <CTableDataCell className="fw-semibold">₹{court.price}</CTableDataCell> */}
                       <CTableDataCell>
                         <CBadge color={court.status === 'Active' ? 'success' : 'danger'}>
                           {court.status || 'Active'}
@@ -296,14 +296,14 @@ const Courts = () => {
               onChange={e => setName(e.target.value)}
               className="mb-3"
             />
-            <CFormInput
+            {/* <CFormInput
               label="Price (₹)"
               placeholder="Price"
               type="number"
               value={price}
               onChange={e => setPrice(e.target.value)}
               className="mb-3"
-            />
+            /> */}
             {/* <CFormSelect
               label="Type"
               value={type}
