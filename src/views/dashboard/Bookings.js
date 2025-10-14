@@ -62,6 +62,7 @@ const Bookings = () => {
   const [statusFilter, setStatusFilter] = useState('')
   const [activeTab, setActiveTab] = useState(1)
   const [courts, setCourts] = useState([])
+  const status = ['confirmed', 'pending_payment', 'cancelled']
   const [viewMode, setViewMode] = useState('daily') // daily, weekly, monthly
 
   async function loadCourts() {
@@ -350,7 +351,7 @@ const Bookings = () => {
                         onChange={(e) => setEndDate(e.target.value)}
                       />
                     </CCol>
-                    <CCol md={3}>
+                    <CCol md={2}>
                       <CFormSelect
                         label="Court"
                         value={courtFilter}
@@ -364,7 +365,21 @@ const Bookings = () => {
                         ))}
                       </CFormSelect>
                     </CCol>
-                    <CCol md={3} className="d-flex align-items-end">
+                    <CCol md={2}>
+                      <CFormSelect
+                        label="Status"
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                      >
+                        <option value="">All Status</option>
+                        {status.map((status) => (
+                          <option key={status} value={status}>
+                            {status}
+                          </option>
+                        ))}
+                      </CFormSelect>
+                    </CCol>
+                    <CCol md={2} className="d-flex align-items-end">
                       <CButton
                         color="secondary"
                         className="w-100"
